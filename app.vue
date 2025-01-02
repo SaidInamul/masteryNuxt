@@ -5,6 +5,16 @@ export default defineNuxtComponent({
     data: () => ({
         todoList: [],
     }),
+    computed: {
+        completedItems() {
+            // Filter the todoList as an item that is completed
+            return this.todoList.filter((item) => item.completed);
+        },
+        remainingItems() {
+            // Filter the todoList as an item that is completed
+            return this.todoList.filter((item) => !item.completed);
+        },
+    },
     methods: {
         fetchTodoData() {
             // fetch return a promise
@@ -22,7 +32,12 @@ export default defineNuxtComponent({
 
 <template>
     <div>
-        <img src="/todo.jpg" alt="Todo photo by dlxmedia.hu" />
+        <img
+            src="/todo.jpg"
+            alt="Todo photo by dlxmedia.hu"
+            height="307px"
+            width="520px"
+        />
         <p>
             Photo by
             <a
@@ -39,6 +54,10 @@ export default defineNuxtComponent({
         </p>
         <h1>Hello world nuxt js 3</h1>
         <button @click="fetchTodoData">Fetch data</button>
+        <p>
+            {{ completedItems.length }} items completed |
+            {{ remainingItems.length }} remaining items
+        </p>
         <ul>
             <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
                 <input type="checkbox" :checked="todo.completed" />
