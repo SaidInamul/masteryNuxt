@@ -56,7 +56,7 @@ const fetchTodoData = () => {
 </script>
 
 <template>
-    <div class="py-5 px-5 space-y-5">
+    <div class="space-y-5">
         <h1 class="text-xl font-semibold">Hello world nuxt js 3</h1>
         <UButton @click="fetchTodoData" label="Fetch data"></UButton>
         <p>
@@ -65,8 +65,7 @@ const fetchTodoData = () => {
         </p>
         <ul class="grid grid-cols-2">
             <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
-                <input type="checkbox" :checked="todo.completed" />
-                {{ todo.title }}
+                <UCheckbox :model-value="todo.completed" :label="todo.title" />
             </li>
         </ul>
     </div>
