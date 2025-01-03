@@ -57,7 +57,7 @@ const fetchTodoData = () => {
 
 <template>
     <div class="space-y-5">
-        <h1 class="text-xl font-semibold">Hello world nuxt js 3</h1>
+        <h1 class="text-xl font-semibold">Todo API</h1>
         <UButton @click="fetchTodoData" label="Fetch data"></UButton>
         <p>
             {{ completedItems.length }} items completed |

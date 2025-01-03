@@ -62,7 +62,7 @@ const fetchPokemon = () => {
 
 <template>
     <div class="space-y-5">
-        <h1 class="text-xl font-semibold">Hello world nuxt js 3</h1>
+        <h1 class="text-xl font-semibold">Pokemon API</h1>
         <UButton @click="fetchPokemon" label="Fetch pokemon"></UButton>
         <p>
             {{ normalTypes.length }} normal type pokemons |
