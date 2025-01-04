@@ -1,25 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 
 const pokemonList = ref([]);
-
-const normalTypes = computed(() => {
-    return pokemonList.value.filter((pokemon) =>
-        pokemon.types.some((type) => type.type.name === "normal"),
-    );
-});
-
-const fireTypes = computed(() => {
-    return pokemonList.value.filter((pokemon) =>
-        pokemon.types.some((type) => type.type.name === "fire"),
-    );
-});
-
-const waterTypes = computed(() => {
-    return pokemonList.value.filter((pokemon) =>
-        pokemon.types.some((type) => type.type.name === "water"),
-    );
-});
+const route = useRoute();
 
 const pokemonTypes = computed(() => {
     const types = pokemonList.value.flatMap((pokemon) =>
@@ -29,7 +13,9 @@ const pokemonTypes = computed(() => {
     return [...new Set(types)];
 });
 
-const fetchPokemon = () => {
+const filterGender = computed(() => {});
+
+onMounted(() => {
     try {
         // Fetch the list of Pokémon (names + URLs)
         fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
@@ -57,19 +43,13 @@ const fetchPokemon = () => {
     } catch (error) {
         console.error("Error fetching Pokémon data:", error);
     }
-};
+});
 </script>
 
 <template>
     <BaseViewer class="space-y-5" title="Pokemon API">
         <template v-slot:heading>
-            <UButton @click="fetchPokemon" label="Fetch pokemon"></UButton>
-            <p>
-                {{ normalTypes.length }} normal type pokemons |
-                {{ fireTypes.length }} fire type pokemons |
-                {{ waterTypes.length }} water type pokemons |
-                {{ pokemonTypes.length }} types of pokemons
-            </p></template
+            <p>{{ pokemonTypes.length }} elements of pokemons</p></template
         >
         <template v-slot:content>
             <div class="flex items-center space-x-2">
@@ -85,7 +65,14 @@ const fetchPokemon = () => {
                     </UBadge>
                 </div>
             </div>
-            <ul class="grid grid-cols-2 gap-3">
+            <ul
+                class="grid gap-3"
+                :class="
+                    route.name === 'display-pokemon'
+                        ? 'grid-cols-4'
+                        : 'grid-cols-2'
+                "
+            >
                 <li
                     v-for="pokemon in pokemonList"
                     :key="`pokemon-id-${pokemon.id}`"

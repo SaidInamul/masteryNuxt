@@ -1,49 +1,136 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const visibleTodo = ref(false);
+const visiblePokemon = ref(false);
+</script>
 
 <template>
-    <nav class="bg-green-400 dark:bg-gray-900">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div
             class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         >
             <NuxtLink to="/" class="font-thin flex items-center space-x-2">
                 <img src="/logo.png" class="h-8" alt="Logo" />
-                <p class="">
+                <p class="text-green-500">
                     Sandbox
-                    <span class="text-lg font-medium dark:text-white">
+                    <span
+                        class="text-lg text-black font-medium dark:text-white"
+                    >
                         Nuxt</span
                     >
                 </p>
             </NuxtLink>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
                 <ul
-                    class="flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
                 >
                     <li>
-                        <NuxtLink
-                            to="/"
-                            class="block font-semibold md:text-gray-800 dark:text-white md:dark:text-blue-500"
-                            aria-current="page"
-                            >Home</NuxtLink
+                        <NuxtLink to="/"
+                            ><UButton color="primary" variant="soft"
+                                >Home</UButton
+                            ></NuxtLink
                         >
                     </li>
                     <li>
-                        <NuxtLink href="/display" class="block text-gray-800"
-                            >Display</NuxtLink
+                        <NuxtLink to="/display"
+                            ><UButton color="primary" variant="soft"
+                                >Display</UButton
+                            ></NuxtLink
                         >
                     </li>
-                    <li>
-                        <NuxtLink
-                            href="/display/pokemon"
-                            class="block text-gray-800"
-                            >Pokemon</NuxtLink
+                    <li class="relative">
+                        <UButton
+                            icon="i-heroicons-chevron-down-16-solid"
+                            size="sm"
+                            color="primary"
+                            variant="soft"
+                            label="Pokemon"
+                            trailing
+                            @click="visiblePokemon = !visiblePokemon"
+                        />
+                        <div
+                            v-if="visiblePokemon"
+                            id="dropdownNavbar"
+                            class="absolute z-10 top-full left-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600"
                         >
+                            <ul
+                                class="py-2 text-sm text-gray-700 dark:text-gray-400"
+                                aria-labelledby="dropdownLargeButton"
+                            >
+                                <li>
+                                    <NuxtLink
+                                        to="/display/pokemon"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >List Pokemon</NuxtLink
+                                    >
+                                </li>
+                                <li>
+                                    <NuxtLink
+                                        to="/display/pokemon?gender=male"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >Male</NuxtLink
+                                    >
+                                </li>
+                                <li>
+                                    <NuxtLink
+                                        to="/display/pokemon?gender=female"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >Female</NuxtLink
+                                    >
+                                </li>
+                                <li>
+                                    <NuxtLink
+                                        to="/display/pokemon?gender=false"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >Genderless</NuxtLink
+                                    >
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li>
-                        <NuxtLink
-                            href="/display/todo"
-                            class="block text-gray-800"
-                            >Todo</NuxtLink
+                    <li class="relative">
+                        <UButton
+                            icon="i-heroicons-chevron-down-16-solid"
+                            size="sm"
+                            color="primary"
+                            variant="soft"
+                            label="Todo"
+                            trailing
+                            @click="visibleTodo = !visibleTodo"
+                        />
+                        <div
+                            v-if="visibleTodo"
+                            id="dropdownNavbar"
+                            class="absolute z-10 top-full right-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600"
                         >
+                            <ul
+                                class="py-2 text-sm text-gray-700 dark:text-gray-400"
+                                aria-labelledby="dropdownLargeButton"
+                            >
+                                <li>
+                                    <NuxtLink
+                                        to="/display/todo"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >List todo</NuxtLink
+                                    >
+                                </li>
+                                <li>
+                                    <NuxtLink
+                                        to="/display/todo?completed=true"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >Completed</NuxtLink
+                                    >
+                                </li>
+                                <li>
+                                    <NuxtLink
+                                        to="/display/todo?completed=false"
+                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
+                                        >Incompleted</NuxtLink
+                                    >
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
