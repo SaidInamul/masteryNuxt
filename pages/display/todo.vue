@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <div class="py-5 px-5 grid grid-cols-2">
+    <div class="py-5 px-5 space-y-6">
         <todoViewer />
     </div>
 </template>

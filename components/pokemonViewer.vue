@@ -61,54 +61,57 @@ const fetchPokemon = () => {
 </script>
 
 <template>
-    <div class="space-y-5">
-        <h1 class="text-xl font-semibold">Pokemon API</h1>
-        <UButton @click="fetchPokemon" label="Fetch pokemon"></UButton>
-        <p>
-            {{ normalTypes.length }} normal type pokemons |
-            {{ fireTypes.length }} fire type pokemons |
-            {{ waterTypes.length }} water type pokemons |
-            {{ pokemonTypes.length }} types of pokemons
-        </p>
-        <div class="flex items-center space-x-2">
-            <div><p>Elements:</p></div>
-            <div class="flex flex-wrap items-center gap-3">
-                <UBadge
-                    color="primary"
-                    variant="soft"
-                    v-for="(type, index) in pokemonTypes"
-                    :key="index"
-                    :label="type"
-                >
-                </UBadge>
+    <BaseViewer class="space-y-5" title="Pokemon API">
+        <template v-slot:heading>
+            <UButton @click="fetchPokemon" label="Fetch pokemon"></UButton>
+            <p>
+                {{ normalTypes.length }} normal type pokemons |
+                {{ fireTypes.length }} fire type pokemons |
+                {{ waterTypes.length }} water type pokemons |
+                {{ pokemonTypes.length }} types of pokemons
+            </p></template
+        >
+        <template v-slot:content>
+            <div class="flex items-center space-x-2">
+                <div><p>Elements:</p></div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <UBadge
+                        color="primary"
+                        variant="soft"
+                        v-for="(type, index) in pokemonTypes"
+                        :key="index"
+                        :label="type"
+                    >
+                    </UBadge>
+                </div>
             </div>
-        </div>
-        <ul class="grid grid-cols-2 gap-3">
-            <li
-                v-for="pokemon in pokemonList"
-                :key="`pokemon-id-${pokemon.id}`"
-                class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200"
-            >
-                <div>
-                    <img
-                        :src="pokemon.sprites.front_default"
-                        alt="pokemon sprites"
-                    />
-                </div>
-                <div>
-                    <p class="font-medium text-lg capitalize">
-                        {{ pokemon.name }}
-                    </p>
-                    <div class="space-x-2">
-                        <UBadge
-                            v-for="(types, index) in pokemon.types"
-                            :key="index"
-                            :label="types.type.name"
-                        >
-                        </UBadge>
+            <ul class="grid grid-cols-2 gap-3">
+                <li
+                    v-for="pokemon in pokemonList"
+                    :key="`pokemon-id-${pokemon.id}`"
+                    class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200"
+                >
+                    <div>
+                        <img
+                            :src="pokemon.sprites.front_default"
+                            alt="pokemon sprites"
+                        />
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+                    <div>
+                        <p class="font-medium text-lg capitalize">
+                            {{ pokemon.name }}
+                        </p>
+                        <div class="space-x-2">
+                            <UBadge
+                                v-for="(types, index) in pokemon.types"
+                                :key="index"
+                                :label="types.type.name"
+                            >
+                            </UBadge>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </template>
+    </BaseViewer>
 </template>

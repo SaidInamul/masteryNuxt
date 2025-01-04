@@ -4,6 +4,7 @@
 // Composition API - the reactive data wraps the value inside an object
 // In tempalte section, vue automatically unwraps refs when they are accessed making it more intuitive(Easer for human)
 import { ref, computed } from "vue";
+import BaseViewer from "./baseViewer.vue";
 
 const todoList = ref([]);
 
@@ -56,17 +57,23 @@ const fetchTodoData = () => {
 </script>
 
 <template>
-    <div class="space-y-5">
-        <h1 class="text-xl font-semibold">Todo API</h1>
-        <UButton @click="fetchTodoData" label="Fetch data"></UButton>
-        <p>
-            {{ completedItems.length }} items completed |
-            {{ remainingItems.length }} remaining items
-        </p>
-        <ul class="grid grid-cols-2">
-            <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
-                <UCheckbox :model-value="todo.completed" :label="todo.title" />
-            </li>
-        </ul>
-    </div>
+    <BaseViewer class="space-y-5" title="Todo Viewer">
+        <template v-slot:heading
+            ><UButton @click="fetchTodoData" label="Fetch data"></UButton>
+            <p>
+                {{ completedItems.length }} items completed |
+                {{ remainingItems.length }} remaining items
+            </p></template
+        >
+        <template v-slot:content>
+            <ul class="grid grid-cols-2">
+                <li v-for="todo in todoList" :key="`todo-id-${todo.id}`">
+                    <UCheckbox
+                        :model-value="todo.completed"
+                        :label="todo.title"
+                    />
+                </li>
+            </ul>
+        </template>
+    </BaseViewer>
 </template>
