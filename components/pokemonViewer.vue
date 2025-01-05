@@ -91,7 +91,9 @@ onMounted(() => {
                     v-for="pokemon in filterElement"
                     :key="`pokemon-id-${pokemon.id}`"
                     class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200 duration-300"
-                    :to="`/display/pokemon/${pokemon.id}`"
+                    :to="{
+                        path: `/display/pokemon/${pokemon.id}`,
+                    }"
                 >
                     <div>
                         <img

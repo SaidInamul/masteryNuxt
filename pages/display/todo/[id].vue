@@ -2,6 +2,8 @@
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+
+useHead({ title: `Todo-${route.params.id}` });
 </script>
 
 <template>

@@ -1,11 +1,9 @@
 <script setup>
 import { useRoute } from "vue-router";
-
-useHead({
-    title: "Pokemon ID : ",
-});
+import { defineProps } from "vue";
 
 const route = useRoute();
+useHead({ title: `Pokemon-${route.params.id}` });
 </script>
 
 <template>
