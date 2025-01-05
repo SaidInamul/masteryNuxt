@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+useHead({
+    title: "Index Page",
+});
+</script>
 
 <template>
     <div class="p-6">

@@ -69,11 +69,17 @@ onMounted(() => {
                         :key="index"
                         :to="`/display/pokemon?element=${type}`"
                     >
-                        <UBadge color="primary" variant="soft" :label="type"
+                        <UButton
+                            size="2xs"
+                            color="primary"
+                            variant="soft"
+                            :label="type"
                     /></NuxtLink>
                 </div>
             </div>
+            <NuxtPage v-if="route.params.id" />
             <ul
+                v-else
                 class="grid gap-3"
                 :class="
                     route.name === 'display-pokemon'
@@ -81,10 +87,11 @@ onMounted(() => {
                         : 'grid-cols-2'
                 "
             >
-                <li
+                <NuxtLink
                     v-for="pokemon in filterElement"
                     :key="`pokemon-id-${pokemon.id}`"
-                    class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200"
+                    class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200 duration-300"
+                    :to="`/display/pokemon/${pokemon.id}`"
                 >
                     <div>
                         <img
@@ -99,13 +106,14 @@ onMounted(() => {
                         <div class="space-x-2">
                             <UBadge
                                 v-for="(types, index) in pokemon.types"
+                                size="xs"
                                 :key="index"
                                 :label="types.type.name"
                             >
                             </UBadge>
                         </div>
                     </div>
-                </li>
+                </NuxtLink>
             </ul>
         </template>
     </BaseViewer>

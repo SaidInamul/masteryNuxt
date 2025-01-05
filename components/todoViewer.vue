@@ -68,7 +68,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <BaseViewer class="space-y-5" title="Todo Viewer">
+    <NuxtPage v-if="route.params.id" />
+    <BaseViewer v-else class="space-y-5" title="Todo Viewer">
         <template v-slot:heading>
             <p>
                 {{ completedItems.length }} items completed |
@@ -79,10 +80,11 @@ onMounted(() => {
         <template v-slot:content>
             <ul class="grid grid-cols-2">
                 <li v-for="todo in filterTodo" :key="`todo-id-${todo.id}`">
-                    <UCheckbox
-                        :model-value="todo.completed"
-                        :label="todo.title"
-                    />
+                    <NuxtLink :to="`/display/todo/${todo.id}`"
+                        ><UCheckbox
+                            :model-value="todo.completed"
+                            :label="todo.title"
+                    /></NuxtLink>
                 </li>
             </ul>
         </template>
