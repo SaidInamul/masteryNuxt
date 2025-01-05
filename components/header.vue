@@ -2,7 +2,6 @@
 import { ref } from "vue";
 
 const visibleTodo = ref(false);
-const visiblePokemon = ref(false);
 </script>
 
 <template>
@@ -39,55 +38,12 @@ const visiblePokemon = ref(false);
                             ></NuxtLink
                         >
                     </li>
-                    <li class="relative">
-                        <UButton
-                            icon="i-heroicons-chevron-down-16-solid"
-                            size="sm"
-                            color="primary"
-                            variant="soft"
-                            label="Pokemon"
-                            trailing
-                            @click="visiblePokemon = !visiblePokemon"
-                        />
-                        <div
-                            v-if="visiblePokemon"
-                            id="dropdownNavbar"
-                            class="absolute z-10 top-full left-0 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600"
+                    <li>
+                        <NuxtLink to="/display/pokemon"
+                            ><UButton color="primary" variant="soft"
+                                >Pokemon</UButton
+                            ></NuxtLink
                         >
-                            <ul
-                                class="py-2 text-sm text-gray-700 dark:text-gray-400"
-                                aria-labelledby="dropdownLargeButton"
-                            >
-                                <li>
-                                    <NuxtLink
-                                        to="/display/pokemon"
-                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
-                                        >List Pokemon</NuxtLink
-                                    >
-                                </li>
-                                <li>
-                                    <NuxtLink
-                                        to="/display/pokemon?gender=male"
-                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
-                                        >Male</NuxtLink
-                                    >
-                                </li>
-                                <li>
-                                    <NuxtLink
-                                        to="/display/pokemon?gender=female"
-                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
-                                        >Female</NuxtLink
-                                    >
-                                </li>
-                                <li>
-                                    <NuxtLink
-                                        to="/display/pokemon?gender=false"
-                                        class="block px-4 py-2 hover:bg-green-100 hover:text-green-500 dark:hover:bg-green-600 dark:hover:text-white"
-                                        >Genderless</NuxtLink
-                                    >
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="relative">
                         <UButton

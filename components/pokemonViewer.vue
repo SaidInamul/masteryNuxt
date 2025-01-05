@@ -13,7 +13,15 @@ const pokemonTypes = computed(() => {
     return [...new Set(types)];
 });
 
-const filterGender = computed(() => {});
+const filterElement = computed(() => {
+    if (route.query.element === undefined) {
+        return pokemonList.value;
+    }
+    const queryType = route.query.element.toLowerCase();
+    return pokemonList.value.filter(
+        (pokemon) => pokemon.types.some((type) => type.type.name === queryType), // Check if type matches
+    );
+});
 
 onMounted(() => {
     try {
@@ -49,20 +57,20 @@ onMounted(() => {
 <template>
     <BaseViewer class="space-y-5" title="Pokemon API">
         <template v-slot:heading>
-            <p>{{ pokemonTypes.length }} elements of pokemons</p></template
+            <p>{{ pokemonTypes.length }} elements of pokemons</p>
+            <p>{{ filterElement.length }} pokemons listed</p></template
         >
         <template v-slot:content>
             <div class="flex items-center space-x-2">
                 <div><p>Elements:</p></div>
                 <div class="flex flex-wrap items-center gap-3">
-                    <UBadge
-                        color="primary"
-                        variant="soft"
+                    <NuxtLink
                         v-for="(type, index) in pokemonTypes"
                         :key="index"
-                        :label="type"
+                        :to="`/display/pokemon?element=${type}`"
                     >
-                    </UBadge>
+                        <UBadge color="primary" variant="soft" :label="type"
+                    /></NuxtLink>
                 </div>
             </div>
             <ul
@@ -74,7 +82,7 @@ onMounted(() => {
                 "
             >
                 <li
-                    v-for="pokemon in pokemonList"
+                    v-for="pokemon in filterElement"
                     :key="`pokemon-id-${pokemon.id}`"
                     class="p-3 bg-green-100 rounded-lg flex items-center gap-3 hover:bg-green-200"
                 >
